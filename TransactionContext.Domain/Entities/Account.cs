@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,7 @@ namespace TransactionContext.Domain.Entities
 	public class Account
 	{
 		[Key]
-		public int ID { get; set; }
+		public Guid ID { get; set; }
 		public string Agency { get; set; }
 		public string Number { get; set; }
 		public decimal Balance { get; set; }
@@ -16,11 +17,11 @@ namespace TransactionContext.Domain.Entities
 		
 		public Account()
 		{
-
+            ID = Guid.NewGuid();
 		}
 		
 		public Account(decimal balance, Customer customer, 
-			string agency, string number)
+			string agency, string number) : this()
 		{
 			Balance = balance;
 			Customer = customer;

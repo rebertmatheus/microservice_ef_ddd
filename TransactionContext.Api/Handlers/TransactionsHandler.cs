@@ -60,13 +60,9 @@ namespace TransactionContext.Api.Handlers
 			destinationAccount.Deposit(request.Amount);
 
 			_transactionRepository.Add(originAccount, destinationAccount, request.Amount);
+            _unitOfWork.Commit();
 
-			// _accountRepository.Update(originAccount);
-			// _accountRepository.Update(destinationAccount);
-
-			_unitOfWork.Commit();
-			
-			return (new Response(){Message = "Transferencia realizada com sucesso!"});
+            return (new Response(){Message = "Transferencia realizada com sucesso!"});
 		}
 
 		private string RandomString(int size, bool lowerCase)  
@@ -93,12 +89,11 @@ namespace TransactionContext.Api.Handlers
 
 		private Account CreateAccount(AccountTransferVO reqAccount)
 		{
-			var customer = _customerRepository.Add(RandomString(5,true));
-			var account = _accountRepository.Add(RandomNumber(100,5000), customer, reqAccount.Agency, 
-				reqAccount.Number);
-				
-			customer.Accounts.Add(account);
-			return account;
+            var customer = new Customer(RandomString(5, true));
+            var account = new Account(RandomNumber(100, 5000), customer, reqAccount.Agency, reqAccount.Number);
+            customer.Accounts.Add(account);
+            _accountRepository.Add(account);
+            return account;
 		}
 	}
 }

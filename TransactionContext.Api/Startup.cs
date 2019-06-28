@@ -32,7 +32,6 @@ namespace TransactionContext.Api
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
     
-            // services.AddDbContext<TransactionAccountContext>(FactoryDbContext);
             services.AddDbContext<TransactionAccountContext>(options =>
             options.UseSqlServer(Configuration["TransactionAccountContext"]));
 
@@ -66,12 +65,6 @@ namespace TransactionContext.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
-        }
-
-        private void FactoryDbContext(DbContextOptionsBuilder opt)
-        {
-            var conn = Configuration["TransactionAccountContext"];
-            opt.UseSqlServer(conn);
         }
     }
 }

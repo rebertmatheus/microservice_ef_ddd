@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TransactionContext.Infra.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace TransactionContext.Infra.Migrations
                 name: "Customer",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
+                    ID = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -23,11 +23,11 @@ namespace TransactionContext.Infra.Migrations
                 name: "Account",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
+                    ID = table.Column<Guid>(nullable: false),
                     Agency = table.Column<string>(nullable: true),
                     Number = table.Column<string>(nullable: true),
                     Balance = table.Column<decimal>(nullable: false),
-                    CustomerID = table.Column<int>(nullable: true)
+                    CustomerID = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,11 +44,10 @@ namespace TransactionContext.Infra.Migrations
                 name: "Transaction",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID = table.Column<Guid>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
-                    OriginAccountID = table.Column<int>(nullable: false),
-                    DestinationAccountID = table.Column<int>(nullable: false)
+                    OriginAccountID = table.Column<Guid>(nullable: false),
+                    DestinationAccountID = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -17,8 +17,8 @@ namespace TransactionContext.Infra.Repositories
 
         public virtual void Add(T obj)
         {
+            
             _context.Add(obj);
-            _context.SaveChanges();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -34,13 +34,11 @@ namespace TransactionContext.Infra.Repositories
         public virtual void Remove(T obj)
         {
             _context.Set<T>().Remove(obj);
-            _context.SaveChanges();
         }
 
         public virtual void Update(T obj)
         {
             _context.Entry(obj).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Dispose()

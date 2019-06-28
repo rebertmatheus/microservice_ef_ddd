@@ -10,8 +10,8 @@ using TransactionContext.Infra;
 namespace TransactionContext.Infra.Migrations
 {
     [DbContext(typeof(TransactionAccountContext))]
-    [Migration("20190628052046_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20190628193033_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,13 +23,13 @@ namespace TransactionContext.Infra.Migrations
 
             modelBuilder.Entity("TransactionContext.Domain.Entities.Account", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<Guid>("ID");
 
                     b.Property<string>("Agency");
 
                     b.Property<decimal>("Balance");
 
-                    b.Property<int?>("CustomerID");
+                    b.Property<Guid?>("CustomerID");
 
                     b.Property<string>("Number");
 
@@ -42,7 +42,7 @@ namespace TransactionContext.Infra.Migrations
 
             modelBuilder.Entity("TransactionContext.Domain.Entities.Customer", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<Guid>("ID");
 
                     b.Property<string>("Name");
 
@@ -53,15 +53,14 @@ namespace TransactionContext.Infra.Migrations
 
             modelBuilder.Entity("TransactionContext.Domain.Entities.Transaction", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
 
-                    b.Property<int>("DestinationAccountID");
+                    b.Property<Guid>("DestinationAccountID");
 
-                    b.Property<int>("OriginAccountID");
+                    b.Property<Guid>("OriginAccountID");
 
                     b.HasKey("ID");
 

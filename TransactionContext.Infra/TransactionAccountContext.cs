@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using TransactionContext.Domain.Entities;
 using TransactionContext.Infra.Mappings;
 
@@ -14,7 +13,6 @@ namespace TransactionContext.Infra
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         protected IServiceProvider _serviceProvider;
-
         public TransactionAccountContext(DbContextOptions<TransactionAccountContext> optionsBuilder) 
             : base(optionsBuilder)
         {
